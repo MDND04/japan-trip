@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大阪京都 10 天 9 夜深度旅遊企劃 (10/23 - 11/2)</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2b2d42;
+            --text-sub: #6c757d;
+            --primary-accent: #d90429;
+            --secondary-accent: #ef233c;
+            --border-color: #edf2f4;
+            --highlight-bg: #fff0f3;
+            --badge-bg: #8d99ae;
+            --badge-text: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --radius: 16px;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0f1115;
+            --card-bg: #1a1d24;
+            --text-main: #edf2f4;
+            --text-sub: #a0aab2;
+            --primary-accent: #ff4d6d;
+            --secondary-accent: #ff758f;
+            --border-color: #2b2f3a;
+            --highlight-bg: #2d1921;
+            --badge-bg: #4a5568;
+            --badge-text: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1d2d44 0%, #0d131a 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #8d99ae;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-accent);
+            color: white;
+            border-color: var(--primary-accent);
+        }
+
+        /* Timeline & Cards */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 22px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary-accent);
+        }
+
+        .day-theme {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .day-spots {
+            font-size: 1rem;
+            color: var(--text-main);
+            line-height: 1.8;
+            padding-right: 110px;
+        }
+
+        .day-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 5px;
+        }
+
+        .day-note {
+            background: var(--highlight-bg);
+            color: var(--secondary-accent);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* 查看细节按钮 */
+        .view-detail-btn {
+            background: var(--primary-accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(217, 4, 41, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .view-detail-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* USJ 专属样式 */
+        .usj-container {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .usj-banner {
+            background: linear-gradient(135deg, #ff416c 0%, #8a2387 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .usj-banner h2 {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .usj-timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--primary-accent);
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .usj-item {
+            position: relative;
+            background: var(--highlight-bg);
+            padding: 15px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .usj-item::before {
+            content: "🎃";
+            position: absolute;
+            left: -35px;
+            top: 12px;
+            font-size: 1.2rem;
+            background: var(--card-bg);
+            border-radius: 50%;
+            padding: 2px;
+        }
+
+        .usj-time {
+            font-weight: 800;
+            color: var(--primary-accent);
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .usj-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* 推荐项目分类分区样式 */
+        .rec-section-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary-accent);
+            margin: 25px 0 15px 0;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--primary-accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .rec-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .rec-card-body {
+            margin-bottom: 12px;
+        }
+
+        .rec-tag {
+            font-size: 0.75rem;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .rec-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .rec-desc {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+        }
+
+        .rec-card-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* 实用提示 */
+        .tips-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-accent);
+        }
+
+        .tips-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tips-card li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .tips-card li::before {
+            content: "📌";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* 弹窗 (Modal) 样式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            max-width: 580px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: var(--text-sub);
+            cursor: pointer;
+        }
+
+        .modal-header {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-accent);
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            color: var(--primary-accent);
+            font-weight: bold;
+        }
+
+        .modal-subtitle {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+
+        .detail-section {
+            margin-bottom: 18px;
+        }
+
+        .detail-section h4 {
+            font-size: 1rem;
+            color: var(--secondary-accent);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .detail-section p, .detail-section ul {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-left: 10px;
+        }
+
+        .detail-section ul {
+            list-style-type: none;
+        }
+
+        .detail-section ul li {
+            margin-bottom: 6px;
+        }
+
+        /* 地址列表样式 */
+        .address-list {
+            background: var(--highlight-bg);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.88rem;
+        }
+
+        .address-item {
+            margin-bottom: 10px;
+        }
+
+        .address-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .address-name {
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .map-link {
+            display: inline-block;
+            color: var(--primary-accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 2px;
+            word-break: break-all;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.6rem; }
+            .day-header { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .day-spots { padding-right: 0; }
+            .day-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .view-detail-btn { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙 切換模式</button>
+        <h1>🇯🇵 大阪京都 10 天 9 夜深度旅遊企劃</h1>
+        <p>旅行日期：2026/10/23 (五) - 2026/11/02 (一)</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 導覽頁籤 -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('itinerary')">📅 每日行程表</button>
+            <button class="tab-btn" onclick="switchTab('usj')">🎢 USJ 萬聖節行程</button>
+            <button class="tab-btn" onclick="switchTab('recommendations')">📍 深度遊特別推薦</button>
+            <button class="tab-btn" onclick="switchTab('tips')">💡 交通與實用資訊</button>
+        </div>
+
+        <!-- 1. 每日行程表 -->
+        <div id="itinerary-tab" class="tab-content">
+            <div class="timeline">
+
+                <!-- Day 1 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/23 (五) | Day 1</span>
+                        <span class="day-theme">抵達與京都首航</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 關西機場 (08:00) → Haruka 特急 → 京都車站 → 京都塔
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🏨 住宿：住京都車站附近</span>
+                        <button class="view-detail-btn" onclick="openDetail(1)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 2 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/24 (六) | Day 2</span>
+                        <span class="day-theme">經典東山文化巡禮</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 清水寺 → 二年坂/三年坂 → 八坂神社 → 祇園花見小路
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">👘 建議租借和服</span>
+                        <button class="view-detail-btn" onclick="openDetail(2)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 3 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/25 (日) | Day 3</span>
+                        <span class="day-theme">嵐山自然之美</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 嵐山小火車 → 竹林小徑 → 天龍寺 → 渡月橋 → 金閣寺
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🚃 搭乘嵐電體驗</span>
+                        <button class="view-detail-btn" onclick="openDetail(3)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/26 (一) | Day 4</span>
+                        <span class="day-theme">鳥居與宇治抹茶</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 伏見稻荷大社 → 千本鳥居 → 宇治平等院 → 抹茶品嚐
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🍵 宇治適合午後漫步</span>
+                        <button class="view-detail-btn" onclick="openDetail(4)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 5 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/27 (二) | Day 5</span>
+                        <span class="day-theme">奈良小鹿與夜生活</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 京都退房 → 奈良公園 → 東大寺 → 移動至大阪 → 道頓堀
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🏨 改住大阪難波</span>
+                        <button class="view-detail-btn" onclick="openDetail(5)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 6 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/28 (三) | Day 6</span>
+                        <span class="day-theme">夢幻主題樂園</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 日本環球影城 (USJ) 全日（瑪利歐、哈利波特、萬聖節鬼屋）
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🎟️ 需提前購票與快速通關</span>
+                        <button class="view-detail-btn" onclick="openDetail(6)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 7 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/29 (四) | Day 7</span>
+                        <span class="day-theme">大阪歷史與狂歡夜</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 黑門市場 → 大阪城天守閣 → 心齋橋購物 → 阿倍野夜景 → Osaka Burlesque (第二場 VIP 席)
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🍸 第二場約 21:00 入場 / 21:30 開演</span>
+                        <button class="view-detail-btn" onclick="openDetail(7)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 8 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/30 (五) | Day 8</span>
+                        <span class="day-theme">姬路神戶一日遊</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 姬路城（國寶） → 神戶北野異人館 → 神戶港夜景
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🥩 晚餐建議神戶牛</span>
+                        <button class="view-detail-btn" onclick="openDetail(8)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 9 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">10/31 (六) | Day 9</span>
+                        <span class="day-theme">海洋探險與最後採購</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 大阪海遊館 → 天保山摩天輪 → 梅田藍天大廈 → 藥妝採買
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🛍️ 梅田區百貨集中</span>
+                        <button class="view-detail-btn" onclick="openDetail(9)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 10 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">11/01 (日) | Day 10</span>
+                        <span class="day-theme">最後巡禮</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 難波八阪神社 → 難波/心齋橋最後補貨 → 休息準備
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">🌙 享受大阪最後一晚</span>
+                        <button class="view-detail-btn" onclick="openDetail(10)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <!-- Day 11 -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <span class="day-title">11/02 (一) | Day 11</span>
+                        <span class="day-theme">完美結尾與返程</span>
+                    </div>
+                    <div class="day-spots">
+                        <strong>重點景點：</strong> 南海電鐵 Rapi:t → 關西機場 (14:00 班機)
+                    </div>
+                    <div class="day-footer">
+                        <span class="day-note">✈️ 11:30 前須抵達機場</span>
+                        <button class="view-detail-btn" onclick="openDetail(11)">🔍 查看細節</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 2. 日本環球影城 (USJ) 專屬頁籤 -->
+        <div id="usj-tab" class="tab-content" style="display: none;">
+            <div class="usj-container">
+                <div class="usj-banner">
+                    <h2>🎃 日本環球影城 (USJ) 萬聖節一日遊</h2>
+                    <p>詳細活動與表演時間排程</p>
+                </div>
+                
+                <div class="usj-timeline">
+                    <div class="usj-item">
+                        <div class="usj-time">09:00 - 09:30</div>
+                        <div class="usj-title">入園與熱身</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">09:30 - 10:00</div>
+                        <div class="usj-title">好萊塢夢幻乘車處 (Hollywood Dream)（使用快速通關）</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">10:40 - 14:00</div>
+                        <div class="usj-title">哈利波特魔法世界、午餐與街頭表演（使用快速通關玩禁忌之旅）</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">11:30 或 13:30</div>
+                        <div class="usj-title">水世界 (WaterWorld) 精彩特技表演</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">14:00 - 14:40</div>
+                        <div class="usj-title">飛天翼龍 (The Flying Dinosaur)（使用快速通關）</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">14:50 - 15:30</div>
+                        <div class="usj-title">Resident Evil (惡靈古堡)（使用快速通關）</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">15:00</div>
+                        <div class="usj-title">(備選場次) 水世界 (WaterWorld)</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">17:00 - 17:45</div>
+                        <div class="usj-title">貞子的詛咒 ～黑暗恐怖乘車遊～</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">18:00 - 18:30</div>
+                        <div class="usj-title">恐怖工廠 (Horror Attraction)</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">18:30 - 19:30</div>
+                        <div class="usj-title">超級任天堂世界 (Super Nintendo World，使用快速通關玩瑪利歐賽車與耀西大冒險)</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">19:30 - 20:10</div>
+                        <div class="usj-title">【夜間限定】大白鯊 ～紅色警報～ (萬聖節夜間特別版)</div>
+                    </div>
+                    <div class="usj-item">
+                        <div class="usj-time">20:10 - 21:00</div>
+                        <div class="usj-title">街頭喪屍群舞 (Street Zombies & Zombie de Dance) 萬聖節重頭戲</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 深度遊特別推薦（已加入最新大阪與京都燒肉/牛舌推薦） -->
+        <div id="recommendations-tab" class="tab-content" style="display: none;">
+            
+            <!-- 京都推荐 -->
+            <div class="rec-section-title">⛩️ 京都區域推薦（京町家、高湯沾醬與厚切牛舌）</div>
+            <div class="rec-grid">
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都活動</span>
+                        <div class="rec-name">Kaikai YOKAI Festival 2026</div>
+                        <div class="rec-desc">東映太秦映畫村 (Toei Kyoto Studio Park) 舉辦的精彩妖怪祭典活動！</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('yokaifestival')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都燒肉</span>
+                        <div class="rec-name">京之燒肉處 弘 (Hiro)</div>
+                        <div class="rec-desc">採購整頭黑毛和牛（一頭買い），必點九條蔥捲和牛與特選厚切鹽味牛舌。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('hiro')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都燒肉</span>
+                        <div class="rec-name">先斗町燒肉 Kiraku</div>
+                        <div class="rec-desc">位於古都風情先斗町巷弄內，招牌為超級蔥鹽牛舌與極上和牛套餐。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('kiraku')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都燒肉</span>
+                        <div class="rec-name">京洛燒肉 Yabu</div>
+                        <div class="rec-desc">Tabelog 高分名店，主打元祖厚切蔥包牛舌，內部塞滿香氣濃郁的蔥花。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('yabu')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都燒肉</span>
+                        <div class="rec-name">敘敘苑 (JR 京都伊勢丹店)</div>
+                        <div class="rec-desc">頂級燒肉連鎖，位於伊勢丹 7 樓，邊吃極品和牛邊俯瞰京都塔夜景。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('jojoen')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都景點</span>
+                        <div class="rec-name">藍瓶咖啡京都店</div>
+                        <div class="rec-desc">百年町家老屋改建，融合設計感與咖啡香。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('bluebottle')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都景點</span>
+                        <div class="rec-name">南禪寺水路閣</div>
+                        <div class="rec-desc">古寺內的紅磚引水渠，充滿歷史滄桑感的攝影聖地。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('suirokaku')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都購物</span>
+                        <div class="rec-name">SOU・SOU</div>
+                        <div class="rec-desc">京都本土設計品牌，現代時尚與傳統和服元素的完美結合。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('sousou')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">京都選物</span>
+                        <div class="rec-name">Pass the Baton</div>
+                        <div class="rec-desc">祇園內的設計感古董店，附設精緻冰淇淋甜點。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('passthebaton')">🔍 查看細節</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 大阪推荐 -->
+            <div class="rec-section-title">🏯 大阪區域推薦（極厚牛舌、和牛燒肉與網紅美食）</div>
+            <div class="rec-grid">
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪燒肉/牛舌</span>
+                        <div class="rec-name">牛舌の檸檬 (Gyutan no Lemon)</div>
+                        <div class="rec-desc">東京超人氣名店進駐！主打極厚切炭烤牛舌套餐與 A5黑毛和牛組合。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('gyutanlemon')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪燒肉</span>
+                        <div class="rec-name">燒肉無雙武藏</div>
+                        <div class="rec-desc">Tabelog 評分高達 3.63 的實力派，必點特上厚切鹽味牛舌與 A5 和牛拼盤。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('musashi')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪燒肉</span>
+                        <div class="rec-name">萬野燒肉 (Yakiniku Manno)</div>
+                        <div class="rec-desc">肉商直營名店，油花極美且提供豐富的稀有部位與細分牛舌部位。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('manno')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪美食</span>
+                        <div class="rec-name">美味巨大鰻魚玉子燒飯</div>
+                        <div class="rec-desc">Unagi Kushiyaki Izumo (梅田) 人氣打卡美食，視覺與美味兼具！</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('unagiizumo')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪購物</span>
+                        <div class="rec-name">Orange Street</div>
+                        <div class="rec-desc">南堀江潮流大街，聚集各大潮牌與質感傢俱店。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('orangestreet')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪文化</span>
+                        <div class="rec-name">國立國際美術館</div>
+                        <div class="rec-desc">獨特的「竹筍」造型建築，環境幽靜優美。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('nmoa')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪美食</span>
+                        <div class="rec-name">HARBS (水果千層)</div>
+                        <div class="rec-desc">關西必吃的精緻甜點，水果千層蛋糕極具人氣。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('harbs')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">大阪夜生活</span>
+                        <div class="rec-name">Osaka Burlesque</div>
+                        <div class="rec-desc">關西頂級歌舞表演酒吧，VIP 席位提供前排視角、優質酒飲與專屬互動體驗。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('burlesque')">🔍 查看細節</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 周边推荐 (奈良与神户) -->
+            <div class="rec-section-title">🦌 奈良 & 神戶區域推薦</div>
+            <div class="rec-grid">
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">奈良建築</span>
+                        <div class="rec-name">格子之家</div>
+                        <div class="rec-desc">展示傳統奈良長屋建築，了解古代日式空間設計智慧。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('koshika')">🔍 查看細節</button>
+                    </div>
+                </div>
+
+                <div class="rec-card">
+                    <div class="rec-card-body">
+                        <span class="rec-tag">神戶景點</span>
+                        <div class="rec-name">BE KOBE 紀念碑</div>
+                        <div class="rec-desc">美利堅公園標誌性打卡點，港口燈光氛圍十足。</div>
+                    </div>
+                    <div class="rec-card-footer">
+                        <button class="view-detail-btn" onclick="openRecDetail('bekobe')">🔍 查看細節</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 4. 行程亮點與實用資訊 -->
+        <div id="tips-tab" class="tab-content" style="display: none;">
+            <div class="tips-card">
+                <h3>💡 行程亮點與實用資訊</h3><br>
+                <ul>
+                    <li><strong>交通建議：</strong> 前 4 天可考慮購買 <em>Kansai Thru Pass</em>；往返機場建議使用 <em>Haruka</em> 與 <em>Rapi:t</em>。</li>
+                    <li><strong>餐飲推薦：</strong> 京都抹茶、大阪章魚燒、神戶牛肉、黑門市場刺身。</li>
+                    <li><strong>購物提醒：</strong> 難波與心齋橋是買藥妝與服飾的首選，梅田則是高檔百貨的聚集地。</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>🌸 祝您擁有一段難忘的日本關西之旅！ 🇯🇵</p>
+        </footer>
+
+    </div>
+
+    <!-- 詳情彈窗 (Modal) -->
+    <div id="detail-modal" class="modal-overlay" onclick="closeDetail(event)">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <div id="m-title" class="modal-title">10/23 (五) | Day 1</div>
+                <div id="m-subtitle" class="modal-subtitle">抵達與京都首航</div>
+            </div>
+            <div id="m-content">
+                <!-- 动态填充内容 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dayDetails = {
+            1: {
+                title: "10/23 (五) | Day 1",
+                subtitle: "抵達與京都首航",
+                schedule: [
+                    "<b>08:00</b> 抵達關西國際機場 (KIX)，辦理入境與提領行李。",
+                    "<b>09:30</b> 搭乘 <i>JR Haruka 特急</i> 直達京都車站 (約 80 分鐘)。",
+                    "<b>11:30</b> 飯店 Check-in 或寄放行李（建議入住京都車站周邊）。",
+                    "<b>13:00</b> 午餐：京都車站地下街拉麵小路或中村藤吉抹茶。",
+                    "<b>15:00</b> 漫步京都車站周邊，登上 <i>京都塔</i> 俯瞰京都夜景。",
+                    "<b>18:30</b> 晚餐：京豆腐料理或日式居酒屋。"
+                ],
+                addresses: [
+                    { name: "關西國際機場 (KIX)", addr: "1 Senshukukonaka, Tajiri, Sennan District, Osaka 549-0011" },
+                    { name: "京都車站", addr: "Higashishiokoji Kamadonocho, Shimogyo Ward, Kyoto, 600-8216" },
+                    { name: "京都塔", addr: "721 Higashishiokojicho, Shimogyo Ward, Kyoto, 600-8216" }
+                ],
+                transport: "JR Haruka 特急（建議提前預訂折扣票）。",
+                tips: "今日早到，建議先在車站寄放行李，保持輕鬆的開局步調。"
+            },
+            2: {
+                title: "10/24 (六) | Day 2",
+                subtitle: "經典東山文化巡禮",
+                schedule: [
+                    "<b>08:30</b> 租借和服（建議提前預約體驗）。",
+                    "<b>09:30</b> 參觀 <i>清水寺</i>、清水舞台，欣賞古色古香建築。",
+                    "<b>12:00</b> 漫步 <i>二年坂、三年坂</i>，沿途品嚐和菓子與特色小吃。",
+                    "<b>15:00</b> 前往 <i>八坂神社</i> 祈福求好運。",
+                    "<b>17:00</b> 漫步 <i>祇園花見小路</i>，體驗京都傳統町家風情。",
+                    "<b>19:00</b> 歸還和服，前往祇園附近享用晚餐。"
+                ],
+                addresses: [
+                    { name: "清水寺", addr: "1-294 Kiyomizu, Higashiyama Ward, Kyoto, 605-0862" },
+                    { name: "二年坂/三年坂", addr: "2 Chome Kiyomizu, Higashiyama Ward, Kyoto, 605-0862" },
+                    { name: "八坂神社", addr: "625 Gionmachi Kitagawa, Higashiyama Ward, Kyoto, 605-0073" },
+                    { name: "祇園花見小路", addr: "Gionmachi Minamigawa, Higashiyama Ward, Kyoto, 605-0074" }
+                ],
+                transport: "京都市營巴士 / 步行。",
+                tips: "週末景點人潮較多，建議早起出發，清水寺越早去拍照越美！"
+            },
+            3: {
+                title: "10/25 (日) | Day 3",
+                subtitle: "嵐山自然之美",
+                schedule: [
+                    "<b>08:30</b> 搭乘JR或嵐電前往嵐山，搭乘 <i>嵐山小火車</i> 觀賞峽谷美景。",
+                    "<b>11:00</b> 漫步 <i>竹林小徑</i> 與參觀 <i>天龍寺</i> 庭園。",
+                    "<b>13:00</b> 渡月橋邊享用午餐，推薦品嚐嵐山湯豆腐或輕食咖啡。",
+                    "<b>15:00</b> 搭乘嵐電轉乘前往 <i>金閣寺</i> (鹿苑寺)，欣賞金碧輝煌的舍利殿。",
+                    "<b>18:00</b> 返回京都市區享用晚膳。"
+                ],
+                addresses: [
+                    { name: "嵐山小火車 (嵯峨站)", addr: "Saga Tenryuji Kuramacho, Ukyo Ward, Kyoto, 616-8373" },
+                    { name: "天龍寺", addr: "68 Saga Tenryuji Susukinobabacho, Ukyo Ward, Kyoto, 616-8385" },
+                    { name: "渡月橋", addr: "Saga Nakanoshimacho, Ukyo Ward, Kyoto, 616-8383" },
+                    { name: "金閣寺", addr: "1 Kinkakujicho, Kita Ward, Kyoto, 603-8361" }
+                ],
+                transport: "JR 嵯峨野線 / 嵐電 (京福電鐵)。",
+                tips: "嵐山小火車車票非常搶手，務必提前在網路上預訂完畢。"
+            },
+            4: {
+                title: "10/26 (一) | Day 4",
+                subtitle: "鳥居與宇治抹茶",
+                schedule: [
+                    "<b>08:30</b> 前往 <i>伏見稻荷大社</i>，走訪著名的千本鳥居。",
+                    "<b>11:30</b> 搭乘京阪電車前往宇治。",
+                    "<b>12:30</b> 午餐：宇治抹茶蕎麥麵，並造訪國寶 <i>平等院</i>。",
+                    "<b>15:00</b> 宇治川邊漫步，品嚐伊藤久右衛門或中村藤吉抹茶甜點。",
+                    "<b>18:00</b> 返抵京都車站，採購抹茶伴手禮。"
+                ],
+                addresses: [
+                    { name: "伏見稻荷大社", addr: "68 Fukakusa Yabunouchicho, Fushimi Ward, Kyoto, 612-0882" },
+                    { name: "平等院", addr: "Renge-116 Uji, Kyoto 611-0021" },
+                    { name: "中村藤吉 平等院店", addr: "Renge-5-1 Uji, Kyoto 611-0021" }
+                ],
+                transport: "JR 奈良線 / 京阪本線。",
+                tips: "伏見稻荷大社往上走人潮會大幅减少，拍照效果更佳。"
+            },
+            5: {
+                title: "10/27 (二) | Day 5",
+                subtitle: "奈良小鹿與夜生活",
+                schedule: [
+                    "<b>09:00</b> 京都辦理退房，攜帶行李前往奈良（可寄存在奈良車站）。",
+                    "<b>10:30</b> 造訪 <i>奈良公園</i> 與小鹿互動，參觀古老的 <i>東大寺</i>。",
+                    "<b>13:00</b> 奈良老街（近鐵奈良周邊）享用志津香釜飯或在地美食。",
+                    "<b>15:30</b> 搭乘近鐵電車移動至大阪，入住難波/心齋橋周邊飯店。",
+                    "<b>18:30</b> 晚上體驗 <i>道頓堀</i> 熱鬧街景，打卡跑跑人看板，品嚐章魚燒。"
+                ],
+                addresses: [
+                    { name: "奈良公園", addr: "469 Zoshicho, Nara, 630-8211" },
+                    { name: "東大寺", addr: "406-1 Zoshicho, Nara, 630-8211" },
+                    { name: "道頓堀 (固力果看板)", addr: "1 Chome-10-2 Dotonbori, Chuo Ward, Osaka, 542-0071" }
+                ],
+                transport: "近鐵電車 / JR 奈良線。",
+                tips: "餵小鹿時請注意安全，鹿仙貝要收好，避免被群鹿包圍！"
+            },
+            6: {
+                title: "10/28 (三) | Day 6",
+                subtitle: "夢幻主題樂園",
+                schedule: [
+                    "<b>07:30</b> 抵達 <i>日本環球影城 (USJ)</i> 準備入園。",
+                    "<b>09:00 - 18:00</b> 嗨翻全天！衝刺超級任天堂世界（瑪利歐）、哈利波特魔法世界。",
+                    "<b>18:00 - 21:00</b> 體驗萬聖節限定鬼屋與街頭萬聖節殭屍派對。",
+                    "<b>21:30</b> 返回難波，享用深夜拉麵或燒肉宵夜。"
+                ],
+                addresses: [
+                    { name: "日本環球影城 (USJ)", addr: "2 Chome-1-33 Sakurajima, Konohana Ward, Osaka, 554-0031" }
+                ],
+                transport: "JR 櫻島線 (JR ゆめ咲線)。",
+                tips: "必備 USJ 官方 App 抽整理券，穿著最舒适的鞋子出門。"
+            },
+            7: {
+                title: "10/29 (四) | Day 7",
+                subtitle: "大阪歷史與狂歡夜",
+                schedule: [
+                    "<b>09:30</b> 漫步 <i>黑門市場</i>，品嚐新鮮海鮮刺身与和牛串燒。",
+                    "<b>12:00</b> 參觀 <i>大阪城天守閣</i>，感受豐臣秀吉的歷史遺蹟。",
+                    "<b>15:00</b> <i>心齋橋/美國村</i> 潮流購物巡禮。",
+                    "<b>18:30</b> 登上 <i>阿倍野 HARUKAS 300</i> 展望台欣賞絕美夜景。",
+                    "<b>21:00</b> 抵達 <i>Osaka Burlesque</i> 入場 (第二場 VIP 席)，21:30 開演享用狂歡歌舞夜。"
+                ],
+                addresses: [
+                    { name: "黑門市場", addr: "2 Chome-4-1 Nipponbashi, Chuo Ward, Osaka, 542-0073" },
+                    { name: "大阪城天守閣", addr: "1-1 Osakajo, Chuo Ward, Osaka, 540-0002" },
+                    { name: "阿倍野 HARUKAS 300", addr: "1 Chome-1-43 Abenosuji, Abeno Ward, Osaka, 545-6016" },
+                    { name: "Osaka Burlesque", addr: "2 Chome-3-22 Shinsaibashisuji, Chuo Ward, Osaka, 542-0085" }
+                ],
+                transport: "大阪地下鐵 (Osaka Metro)。",
+                tips: "Osaka Burlesque VIP 席需提前預訂，感受前排熱烈互動！"
+            },
+            8: {
+                title: "10/30 (五) | Day 8",
+                subtitle: "姬路神戶一日遊",
+                schedule: [
+                    "<b>08:30</b> 搭乘 JR 新快速前往姬路，參觀國寶 <i>姬路城</i> (白鷺城)。",
+                    "<b>12:30</b> 搭車前往神戶，走訪異國風情的 <i>北野異人館街</i>。",
+                    "<b>16:00</b> 漫步至神戶港美利堅公園，與 BE KOBE 紀念碑合照。",
+                    "<b>18:30</b> 晚餐享用頂級 <i>神戶牛排</i>，欣賞神戶港迷人夜景。"
+                ],
+                addresses: [
+                    { name: "姬路城", addr: "68 Honmachi, Himeji, Hyogo 670-0012" },
+                    { name: "北野異人館街", addr: "Kitanocho, Chuo Ward, Kobe, Hyogo 650-0002" },
+                    { name: "BE KOBE 紀念碑", addr: "2 Chome Hatobacho, Chuo Ward, Kobe, Hyogo 650-0042" }
+                ],
+                transport: "JR 神戶線 / JR 阪神電車。",
+                tips: "姬路城天守閣樓梯較陡峭，建議穿著方便穿脫的鞋子。"
+            },
+            9: {
+                title: "10/31 (六) | Day 9",
+                subtitle: "海洋探險與最後採購",
+                schedule: [
+                    "<b>09:30</b> 前往 <i>大阪海遊館</i>，近距離觀賞巨大鯨鯊与海洋生物。",
+                    "<b>13:00</b> 搭乘天保山大摩天輪，俯瞰大阪灣景色。",
+                    "<b>15:00</b> 前往梅田商圈（阪急、大丸百貨、Grand Front Osaka）採購。",
+                    "<b>18:30</b> 造訪 <i>梅田藍天大廈</i> 空中庭園展望台。",
+                    "<b>20:30</b> 梅田或心齋橋藥妝店大採購。"
+                ],
+                addresses: [
+                    { name: "大阪海遊館", addr: "1 Chome-1-10 Kaigandori, Minato Ward, Osaka, 552-0022" },
+                    { name: "天保山大摩天輪", addr: "1 Chome-1-10 Kaigandori, Minato Ward, Osaka, 552-0022" },
+                    { name: "梅田藍天大廈", addr: "1 Chome-1-88 Oyodonaka, Kita Ward, Osaka, 531-6023" }
+                ],
+                transport: "大阪地下鐵中央線 / 御堂筋線。",
+                tips: "萬聖節夜晚心齋橋與道頓堀人潮會非常擁擠，可感受變裝派對氛圍！"
+            },
+            10: {
+                title: "11/01 (日) | Day 10",
+                subtitle: "最後巡禮",
+                schedule: [
+                    "<b>10:00</b> 走訪獅子殿造型獨特的 <i>難波八阪神社</i> 祈福。",
+                    "<b>12:00</b> 午餐：千房大阪燒或串炸達摩。",
+                    "<b>14:00</b> 難波、心齋橋進行最後伴手禮與服飾補貨。",
+                    "<b>18:00</b> 返回飯店整理行李，享受在大阪的最後一個悠閒夜晚。"
+                ],
+                addresses: [
+                    { name: "難波八阪神社", addr: "2 Chome-9-19 Motomachi, Naniwa Ward, Osaka, 556-0016" },
+                    { name: "心齋橋筋商店街", addr: "2 Chome Shinsaibashisuji, Chuo Ward, Osaka, 542-0085" }
+                ],
+                transport: "步行 / 大阪地下鐵。",
+                tips: "收拾行李時記得預留託運重量，將液體與免稅品分類放好。"
+            },
+            11: {
+                title: "11/02 (一) | Day 11",
+                subtitle: "完美結尾與返程",
+                schedule: [
+                    "<b>09:30</b> 辦理退房，前往難波站搭乘 <i>南海電鐵 Rapi:t</i>。",
+                    "<b>10:30</b> 抵達關西國際機場 (KIX)。",
+                    "<b>11:30 前</b> 完成免稅退稅、行李託運與入境通關。",
+                    "<b>14:00</b> 搭乘班機起飛，帶著滿滿回憶返回溫馨的家。"
+                ],
+                addresses: [
+                    { name: "南海難波車站", addr: "5 Chome-1-60 Namba, Chuo Ward, Osaka, 542-0076" },
+                    { name: "關西國際機場 (KIX)", addr: "1 Senshukukonaka, Tajiri, Sennan District, Osaka 549-0011" }
+                ],
+                transport: "南海電鐵 Rapi:t 特急。",
+                tips: "建議至少提前 2.5 - 3 小時抵達關西機場，免稅店購物排隊時間較長。"
+            }
+        };
+
+        // 特别推荐细节数据库
+        const recDetails = {
+            yokaifestival: {
+                title: "Kaikai YOKAI Festival 2026",
+                subtitle: "東映太秦映畫村 (Toei Kyoto Studio Park)",
+                desc: "充滿奇幻色彩與日本傳統妖怪文化的精彩祭典活動。想搶先預覽活動精彩片段或實景？點擊下方 Instagram 連結即可觀看：<br><br><a href='https://www.instagram.com/reel/DdB8z_cODzk/?utm_source=ig_web_copy_link&srtk=MzRlODBiNWFlZA==' target='_blank' style='color: var(--primary-accent); font-weight: bold; text-decoration: underline;'>📱 點擊觀看官方 Instagram Reels 宣傳短片</a>",
+                addr: "10 Uzumasa Higashihachigaokacho, Ukyo Ward, Kyoto, 616-8586"
+            },
+            hiro: {
+                title: "京之燒肉處 弘 (Hiro)",
+                subtitle: "京都知名的黑毛和牛一頭買名店",
+                desc: "採用整頭黑毛和牛購入（一頭買い），CP值極高。招牌九條蔥捲和牛與特選厚切鹽味牛舌肉質鮮甜，店內提供友善的中文菜單。",
+                addr: "京都車站前店 / 先斗町店 / 祇園店等多家分店"
+            },
+            kiraku: {
+                title: "先斗町燒肉 Kiraku",
+                subtitle: "古都風情巷弄內的頂級燒肉",
+                desc: "位於充滿歷史風情的先斗町巷弄內。招牌菜為鋪滿九條蔥的「超級蔥鹽牛舌」以及極上和牛套餐，視覺與味覺雙重享受。",
+                addr: "中京区先斗町 (近三條/四條河原町)"
+            },
+            yabu: {
+                title: "京洛燒肉 Yabu (Kyoraku Yabu)",
+                subtitle: " Tabelog 高分名店・元祖厚切蔥包牛舌",
+                desc: "主打口袋狀的厚切牛舌，裡面塞滿香氣十足的蔥花，烤到外酥內嫩、肉汁完美鎖在裡面，搭配炙烤和牛生拌牛肉十分過癮。",
+                addr: "阪急「京都河原町站」步行約3分鐘"
+            },
+            jojoen: {
+                title: "敘敘苑 (JR 京都伊勢丹店)",
+                subtitle: "日本頂級燒肉連鎖・絕美夜景展望",
+                desc: "位於京都伊勢丹 7 樓，以極品黑毛和牛與招牌醃漬特上牛舌聞名。邊吃頂級和牛還可以邊俯瞰京都塔與市區璀璨夜景！",
+                addr: "JR Kyoto Isetan 7F, Shimogyo Ward, Kyoto, 600-8555"
+            },
+            bluebottle: {
+                title: "藍瓶咖啡京都店 (Blue Bottle Kyoto)",
+                subtitle: "百年町家老屋改建的精品咖啡館",
+                desc: "由百年傳統京町家建築改建而成，完美結合傳統日式木造結構与現代簡約設計感，氣氛幽靜，是品嚐手沖咖啡與拍照打卡的絕佳去處。",
+                addr: "64 Nanzenji Kusagawacho, Sakyo Ward, Kyoto, 606-8437"
+            },
+            suirokaku: {
+                title: "南禪寺水路閣",
+                subtitle: "古寺內的紅磚拱橋引水渠",
+                desc: "位於南禪寺境內的拱形紅磚引水渠，建於明治時代，充滿濃厚的古樸與歷史滄桑感，是京都極具代表性的攝影與取景聖地。",
+                addr: "Nanzenji Fukochicho, Sakyo Ward, Kyoto, 606-8435"
+            },
+            sousou: {
+                title: "SOU・SOU 京都本店",
+                subtitle: "現代傳統融合的京都本土設計品牌",
+                desc: "以「創造新日式文化」為理念的京都特色品牌，將傳統足袋、和服元素融入現代服飾、文具与生活雜貨中，設計色彩鮮艷活潑。",
+                addr: "583 Yoshocho, Nakagyo Ward, Kyoto, 604-8042"
+            },
+            passthebaton: {
+                title: "Pass the Baton 祇園店",
+                subtitle: "白川畔的質感古董選品店與甜點沙龍",
+                desc: "坐落於祇園白川邊的古民家選品店，販售精選二手古董与設計雜貨，附設的「たすき」喫茶店提供精緻且極具人氣的高級刨冰甜點。",
+                addr: "375-2 Gionmachi Kitagawa, Higashiyama Ward, Kyoto, 605-0073"
+            },
+            gyutanlemon: {
+                title: "牛舌の檸檬 (Gyutan no Lemon)",
+                subtitle: "東京超高人氣極厚切牛舌名店進駐大阪",
+                desc: "主打極厚切炭烤牛舌套餐與 A5黑毛和牛燒肉組合。牛舌切得像牛排一樣厚實，咬下去Q彈多汁，配上專屬檸檬醬汁與味噌，完全不油膩。",
+                addr: "心齋橋 / 難波商圈附近"
+            },
+            musashi: {
+                title: "燒肉無雙武藏 (Yakiniku Musou Musashi)",
+                subtitle: "Tabelog 高分實力派燒肉名店",
+                desc: "評分高達 3.63 的實力派名店。必點招牌是特上厚切鹽味牛舌（特上タン），口感鮮嫩極致，A5 黑毛和牛拼盤品質極高。",
+                addr: "大阪市中央區（心齋橋周邊）"
+            },
+            manno: {
+                title: "萬野燒肉 (Yakiniku Manno)",
+                subtitle: "肉商直營的稀有部位與頂級牛舌專家",
+                desc: "以新鮮度與稀有部位著稱。和牛油花極美，且提供各式細分部位的牛舌（如上等牛舌根、蔥鹽牛舌）。",
+                addr: "梅田 LUCUA 百貨、天王寺等均有分店"
+            },
+            unagiizumo: {
+                title: "大阪美味巨大鰻魚玉子燒飯",
+                subtitle: "Unagi Kushiyaki Izumo (梅田) 營業時間：11:00-23:00",
+                desc: "鋪滿巨大鰻魚與厚蛋玉子燒的澎湃組合，視覺與美味兼具！想搶先看誘人實拍影片？點擊下方 Instagram 連結：<br><br><a href='https://www.instagram.com/reel/DLwLIC9usMe/?utm_source=ig_web_copy_link&mdxt=MzRlODBiNWFlZA==&srtk=MzRlODBiNWFlZA==' target='_blank' style='color: var(--primary-accent); font-weight: bold; text-decoration: underline;'>📱 點擊觀看 Instagram 宣傳短片</a>",
+                addr: "3 Chome-1-3 Umeda, Kita Ward, Osaka, 530-0001"
+            },
+            orangestreet: {
+                title: "Orange Street (橘子街 / 南堀江)",
+                subtitle: "大阪潮流服飾与風格傢俱街區",
+                desc: "集結了各大街頭潮流品牌、古著店、質感選品店以及特色咖啡館，是大阪在地年輕人与潮人最愛的逛街去處。",
+                addr: "Minamihorie, Nishi Ward, Osaka, 550-0015"
+            },
+            nmoa: {
+                title: "國立國際美術館 (NMOA)",
+                subtitle: "中之島上的地下型現代美術館",
+                desc: "入口造型如同竹筍般拔地而起，展示空間主要位於地下。館內展出世界各國現代藝術作品，周邊環境安靜優雅，充滿人文氣息。",
+                addr: "4 Chome-2-55 Nakanoshima, Kita Ward, Osaka, 530-0005"
+            },
+            harbs: {
+                title: "HARBS (水果千層蛋糕)",
+                subtitle: "關西必吃的人氣精緻甜點品牌",
+                desc: "以超高人氣的「水果千層蛋糕 (Fresh Fruit Cake)」聞名，層層堆疊的新鮮季節水果与香甜不膩的鮮奶油，是來關西絕對不可錯過的甜點美食。",
+                addr: "大阪心齋橋 / 梅田各大百貨公司內均有分店"
+            },
+            burlesque: {
+                title: "Osaka Burlesque",
+                subtitle: "關西頂級歌舞表演酒吧 (VIP 席首選)",
+                desc: "關西最具規模与知名度的歌舞秀表演酒吧，舞台效果震撼、舞者演出精彩熱烈。預訂 VIP 席可享有前排視角、優質酒飲与專屬互動體驗！",
+                addr: "2 Chome-3-22 Shinsaibashisuji, Chuo Ward, Osaka, 542-0085"
+            },
+            koshika: {
+                title: "奈良町格子之家",
+                subtitle: "重現古代奈良傳統長屋生活空間",
+                desc: "忠實復原了昔日奈良町商人的傳統町家住宅（格子家），能深入了解古代日式空間配置、採光智慧与町人文化。",
+                addr: "44 Gangojicho, Nara, 630-8332"
+            },
+            bekobe: {
+                title: "BE KOBE 紀念碑",
+                subtitle: "神戶港美利堅公園標誌性打卡地標",
+                desc: "位於神戶港美利堅公園內的白色巨大文字雕塑，象徵神戶市民的自豪与復興精神。夜晚伴隨港口燈光，極具浪漫氛圍。",
+                addr: "2 Chome Hatobacho, Chuo Ward, Kobe, Hyogo 650-0042"
+            }
+        };
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabName + '-tab').style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.querySelector('.theme-toggle');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeBtn.textContent = '🌙 切換模式';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = '☀️ 切換模式';
+            }
+        }
+
+        function openDetail(dayNum) {
+            const data = dayDetails[dayNum];
+            if(!data) return;
+
+            document.getElementById('m-title').textContent = data.title;
+            document.getElementById('m-subtitle').textContent = data.subtitle;
+
+            let scheduleHtml = "<ul>";
+            data.schedule.forEach(item => {
+                scheduleHtml += `<li>${item}</li>`;
+            });
+            scheduleHtml += "</ul>";
+
+            let addressHtml = "<div class='address-list'>";
+            if(data.addresses && data.addresses.length > 0) {
+                data.addresses.forEach(item => {
+                    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name + ' ' + item.addr)}`;
+                    addressHtml += `
+                        <div class="address-item">
+                            <span class="address-name">📍 ${item.name}</span><br>
+                            <a href="${mapUrl}" target="_blank" class="map-link">🗺️ ${item.addr} (點擊導航)</a>
+                        </div>
+                    `;
+                });
+            } else {
+                addressHtml += "<div class='address-item'>尚無特定地址資訊</div>";
+            }
+            addressHtml += "</div>";
+
+            const contentHtml = `
+                <div class="detail-section">
+                    <h4>🕒 當日建議時間表</h4>
+                    ${scheduleHtml}
+                </div>
+                <div class="detail-section">
+                    <h4>📍 主要景點地址 (點擊直接跳轉 Google Maps)</h4>
+                    ${addressHtml}
+                </div>
+                <div class="detail-section">
+                    <h4>🚃 交通建議</h4>
+                    <p>${data.transport}</p>
+                </div>
+                <div class="detail-section">
+                    <h4>💡 貼心提醒</h4>
+                    <p>${data.tips}</p>
+                </div>
+            `;
+
+            document.getElementById('m-content').innerHTML = contentHtml;
+            document.getElementById('detail-modal').style.display = 'flex';
+        }
+
+        function openRecDetail(recKey) {
+            const data = recDetails[recKey];
+            if(!data) return;
+
+            document.getElementById('m-title').textContent = data.title;
+            document.getElementById('m-subtitle').textContent = data.subtitle;
+
+            const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.title + ' ' + data.addr)}`;
+
+            const contentHtml = `
+                <div class="detail-section">
+                    <h4>✨ 景點與美食介紹</h4>
+                    <p>${data.desc}</p>
+                </div>
+                <div class="detail-section">
+                    <h4>📍 地址與導航 (點擊直接跳轉 Google Maps)</h4>
+                    <div class="address-list">
+                        <div class="address-item">
+                            <span class="address-name">📍 ${data.title}</span><br>
+                            <a href="${mapUrl}" target="_blank" class="map-link">🗺️ ${data.addr} (點擊導航)</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('m-content').innerHTML = contentHtml;
+            document.getElementById('detail-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').style.display = 'none';
+        }
+
+        function closeDetail(event) {
+            if(event.target.id === 'detail-modal') {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
